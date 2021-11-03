@@ -55,6 +55,7 @@ console.log('weather route hit')
 
 class WeatherForecast {
   constructor(obj){
+    this.datetime = obj.datetime;
     this.min_temp = obj.min_temp;
     this.max_temp = obj.max_temp;
     this.description = obj.weather.description

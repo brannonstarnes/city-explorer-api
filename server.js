@@ -13,6 +13,7 @@ app.use(cors());
 const PORT = process.env.PORT;
 
 app.get('/weather', handleGetWeather);
+app.get('/movies', handleGetMovies);
 app.get('/*', (req,res) => res.status(403).send('Not Found'));
 
 
@@ -20,8 +21,6 @@ async function handleGetWeather(req,res){
 
   const lat = req.query.lat;
   const lon = req.query.lon;
-
-    console.log('weather route hit')
   const url = `http://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lon}&key=${process.env.WEATHER_API_KEY}&units=I&days=3`;
 
   let response= await axios.get(url);
@@ -33,7 +32,6 @@ async function handleGetWeather(req,res){
      console.log("SENT");  
 };
   
-
 class WeatherForecast {
   constructor(obj){
     this.datetime = obj.datetime;
@@ -42,6 +40,20 @@ class WeatherForecast {
     this.description = obj.weather.description
   } 
 }
+
+async function handleGetMovies(res,req){
+  console.log(req.query);
+  const city_name = req.query.city_name;
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.MOVIE_API_KEY}&with_keyword${city_name}`;
+  
+  let response = await axios.get(url);
+
+  let fetchedMovies = response.data;
+  console.log(fetchedMovies);
+}
+
+
+
 
 app.listen(PORT, () =>console.log(`"I'm listening on ${PORT} - your server"`));
 

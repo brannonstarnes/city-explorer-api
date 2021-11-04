@@ -1,7 +1,7 @@
 # City Explorer API Server
 
 **Author**: Brannon Starnes
-**Version**: 1.0.1 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.0.3 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
 This server will store weather data for the City Explorer application. The client will be able to make a request to the API and the server will respond with apporiate, geo-specific weather information. 
@@ -28,6 +28,16 @@ Estimate of time needed to complete: 3 hours
 
 Start time: 4:40
 
-Finish time: _____
+Finish time: 4:40
 
-Actual time needed to complete: _____
+Actual time needed to complete: 24 hours
+
+
+Name of feature: Weather API
+Estimate of time needed to complete: 5 hours
+
+Start time: 6:40
+
+Finish time: 
+
+Actual time needed to complete: 

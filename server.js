@@ -4,7 +4,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors'); 
 const axios = require('axios');
-
 const app = express(); 
 
 app.use(cors());
@@ -27,9 +26,14 @@ async function handleGetWeather(req,res){
     
   let fetchedWeather = response.data.data;
   let forecastData = fetchedWeather.map(dailyWeather => new WeatherForecast(dailyWeather));
-     console.log(forecastData);
-  res.status(200).send(forecastData);
-     console.log("SENT");  
+  
+  if (forecastData){
+    res.status(200).send(forecastData);
+  } else if (e instanceof TypeError) {
+    res.status(e.name).send(e.message);
+  } else {
+    res.status(500).send("Internal Server Error :/");
+  }
 };
   
 class WeatherForecast {
@@ -42,18 +46,20 @@ class WeatherForecast {
 }
 
 async function handleGetMovies(res,req){
-  console.log(req.query);
-  const city_name = req.query.city_name;
-  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.MOVIE_API_KEY}&with_keyword${city_name}`;
+  try{
+    const city_name = req.query.city_name;
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.MOVIE_API_KEY}&with_keyword${city_name}`;
   
-  let response = await axios.get(url);
+    let response = await axios.get(url);
 
-  let fetchedMovies = response.data;
-  console.log(fetchedMovies);
+    let fetchedMovies = response.data;
+    console.log(fetchedMovies);
+  } catch (e){
+      res.status(500).send("Internal Server Error")
+    }
 }
 
 
 
 
 app.listen(PORT, () =>console.log(`"I'm listening on ${PORT} - your server"`));
-

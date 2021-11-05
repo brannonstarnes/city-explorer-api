@@ -41,7 +41,8 @@ class WeatherForecast {
     this.datetime = obj.datetime;
     this.min_temp = obj.min_temp;
     this.max_temp = obj.max_temp;
-    this.description = obj.weather.description
+    this.description = obj.weather.description;
+    this.icon = obj.weather.icon;
   } 
 }
 
